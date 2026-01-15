@@ -1,5 +1,7 @@
 # testDescFront
 
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=tharakadoo_testDescFront)](https://sonarcloud.io/summary/new_code?id=tharakadoo_testDescFront)
+
 React frontend for the testDesc subscription application.
 
 ## Tech Stack
@@ -79,20 +81,6 @@ npm run e2e:ui        # Run E2E tests with visual UI
 npm run lint          # Run ESLint
 ```
 
-## State Management (Elf)
-
-Using @ngneat/elf for reactive state with optimistic UI pattern:
-
-```javascript
-import { subscriptionStore, startSubscription } from './stores/subscriptionStore';
-
-// Optimistic UI flow
-startSubscription({ websiteId: 1, email: 'user@example.com' });
-// -> Immediately shows success
-// -> API call in background
-// -> Confirms or reverts based on response
-```
-
 ## Testing
 
 ### Unit Tests (Vitest)
@@ -156,15 +144,6 @@ Create `.env.local` for local development:
 VITE_API_URL=http://localhost:8000  # Backend API URL
 ```
 
-## API Endpoints
-
-The frontend connects to these Laravel API endpoints:
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/websites` | List all websites |
-| POST | `/api/websites/{id}/subscribe` | Subscribe to a website |
-
 ## Test Summary
 
 | Type | Count | Command |
@@ -172,6 +151,22 @@ The frontend connects to these Laravel API endpoints:
 | Unit Tests | 25 | `npm run test:run` |
 | E2E Tests (mocked) | 16 | `npm run e2e` |
 | Integration Tests | 2 | See above |
+
+## Code Quality
+
+### Git Hooks (Husky)
+
+| Hook | When | What Runs |
+|------|------|-----------|
+| `pre-commit` | On commit | ESLint --fix (auto-fix + fail on errors) |
+| `pre-push` | On push | Unit tests (`npm run test:run`) |
+
+### SonarCloud
+
+Analysis runs on every push/PR to master via GitHub Actions:
+- Lint check
+- Unit tests with coverage
+- SonarQube scan
 
 ## Related
 
