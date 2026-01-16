@@ -13,54 +13,23 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Unit Tests
+        run: npm run test:run
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-
-#name: Build
-#on:
-#  push:
-#    branches:
-#      - master
-#  pull_request:
-#    types: [opened, synchronize, reopened]
-#
-#permissions:
-#  contents: read
-#  statuses: write
-#  security-events: write
-#
-#jobs:
-#  sonarqube:
-#    name: SonarQube
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0
-#
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '20'
-#          cache: 'npm'
-#
-#      - name: Install dependencies
-#        run: npm ci
-#
-#      - name: Run Lint
-#        run: npm run lint
-#
-#      - name: Run Tests with Coverage
-#        run: npm run test:run -- --coverage
-#
-#      - name: SonarQube Scan
-#        uses: SonarSource/sonarqube-scan-action@v6
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          args: >
-#            -Dsonar.php.coverage.reportPaths=coverage.xml
