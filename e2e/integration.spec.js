@@ -6,7 +6,7 @@ import { test, expect } from '@playwright/test';
  * Then: npx playwright test e2e/integration.spec.js --project=chromium-slow --headed
  */
 test.describe('Integration with Laravel Backend', () => {
-  test.skip(({ }, testInfo) => {
+  test.skip(() => {
     // Skip in CI or when backend is not running
     return process.env.CI === 'true';
   });

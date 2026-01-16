@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { renderHook, act, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useSubscription } from './useSubscription';
 import { resetStore } from '../stores/subscriptionStore';
 import * as api from '../services/api';

@@ -12,12 +12,11 @@ export function SubscriptionForm() {
     errorMessage,
     loadWebsites,
     subscribe,
-    clearStatus,
   } = useSubscription();
 
   useEffect(() => {
     loadWebsites();
-  }, []);
+  }, [loadWebsites]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

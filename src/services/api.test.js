@@ -3,7 +3,7 @@ import { websiteApi, subscriptionApi } from './api';
 
 describe('API Services', () => {
   beforeEach(() => {
-    global.fetch = vi.fn();
+    globalThis.fetch = vi.fn();
   });
 
   describe('websiteApi', () => {
@@ -14,14 +14,14 @@ describe('API Services', () => {
           { id: 2, url: 'https://test.com' },
         ];
 
-        global.fetch.mockResolvedValueOnce({
+        globalThis.fetch.mockResolvedValueOnce({
           ok: true,
           json: () => Promise.resolve({ data: mockWebsites }),
         });
 
         const result = await websiteApi.getAll();
 
-        expect(global.fetch).toHaveBeenCalledWith(
+        expect(globalThis.fetch).toHaveBeenCalledWith(
           expect.stringContaining('/api/websites'),
           expect.objectContaining({ method: 'GET' })
         );
@@ -29,7 +29,7 @@ describe('API Services', () => {
       });
 
       it('should throw error on failed request', async () => {
-        global.fetch.mockResolvedValueOnce({
+        globalThis.fetch.mockResolvedValueOnce({
           ok: false,
           status: 500,
           json: () => Promise.resolve({ message: 'Server error' }),
@@ -48,14 +48,14 @@ describe('API Services', () => {
           website: { url: 'https://example.com' },
         };
 
-        global.fetch.mockResolvedValueOnce({
+        globalThis.fetch.mockResolvedValueOnce({
           ok: true,
           json: () => Promise.resolve({ data: mockResponse }),
         });
 
         const result = await subscriptionApi.subscribe(1, 'user@example.com');
 
-        expect(global.fetch).toHaveBeenCalledWith(
+        expect(globalThis.fetch).toHaveBeenCalledWith(
           expect.stringContaining('/api/websites/1/subscribe'),
           expect.objectContaining({
             method: 'POST',
@@ -69,7 +69,7 @@ describe('API Services', () => {
       });
 
       it('should throw error with message on validation failure', async () => {
-        global.fetch.mockResolvedValueOnce({
+        globalThis.fetch.mockResolvedValueOnce({
           ok: false,
           status: 422,
           json: () => Promise.resolve({ message: 'Already subscribed to this website' }),
@@ -81,7 +81,7 @@ describe('API Services', () => {
       });
 
       it('should throw error on network failure', async () => {
-        global.fetch.mockRejectedValueOnce(new Error('Network error'));
+        globalThis.fetch.mockRejectedValueOnce(new Error('Network error'));
 
         await expect(subscriptionApi.subscribe(1, 'user@example.com')).rejects.toThrow(
           'Network error'
