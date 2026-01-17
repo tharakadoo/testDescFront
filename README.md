@@ -148,9 +148,10 @@ VITE_API_URL=http://localhost:8000  # Backend API URL
 
 | Type | Count | Command |
 |------|-------|---------|
-| Unit Tests | 25 | `npm run test:run` |
-| E2E Tests (mocked) | 16 | `npm run e2e` |
+| Unit Tests (Vitest) | 25 | `npm run test:run` |
+| E2E Tests (Playwright) | 16 | `npm run e2e` |
 | Integration Tests | 2 | See above |
+| **Total** | **43** | |
 
 ## Code Quality
 
@@ -170,4 +171,4 @@ Analysis runs on every push/PR to master via GitHub Actions:
 
 ## Related
 
-- Backend: [testDesc](../testDesc) - Laravel API
+- Backend: [testDesc](https://github.com/tharakadoo/testDesc) - Laravel API
